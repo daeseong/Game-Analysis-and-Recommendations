@@ -1,8 +1,14 @@
+/*
+Manipulating tables and performing EDA before
+importing into Python and doing more in-depth analysis.
+*/
+
 WITH platform_table AS (
 
 	SELECT
 		app_id,
 		title,
+		date_release,
 		CASE
 			WHEN win AND mac AND linux THEN 'All Platforms'
 			WHEN win AND mac THEN 'Windows + Mac'
@@ -22,6 +28,7 @@ WITH platform_table AS (
 
 )
 
+
 -- Number of games, average price, total reviews, and avg postitive ratio
 SELECT
 	platform_support,
@@ -36,4 +43,24 @@ SELECT
 			ELSE 0
 		END)																	AS steam_deck_count
 FROM platform_table
+GROUP BY 1;
+
+
+-- How does support change over time, let's look at windows and all platform
+SELECT
+	DATE_PART('year', date_release) AS release_year,
+	SUM(
+		CASE platform_support
+			WHEN 'All Platforms' THEN 1
+			ELSE 0
+		END) 														AS all_count,
+	SUM(
+		CASE platform_support
+			WHEN 'Windows Only' THEN 1
+			ELSE 0
+		END)														AS windows_count
+FROM platform_table
 GROUP BY 1
+ORDER BY 1;
+		
+	

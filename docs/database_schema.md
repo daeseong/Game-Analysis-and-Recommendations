@@ -1,6 +1,5 @@
 ## Table: game_data
 
-Games available on Steam Store
 
 | Column Name     | Data Type      | Description                                  |
 |-----------------|----------------|----------------------------------------------|
@@ -19,7 +18,7 @@ Games available on Steam Store
 | steam_deck      | varchar(50)    | steam_deck support                           |
 
 
-## Table: users_data
+## Table: user_data
 
 | Column Name | Data Type | Description                           |
 |-------------|-----------|---------------------------------------|
